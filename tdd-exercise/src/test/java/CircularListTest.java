@@ -71,4 +71,56 @@ public class CircularListTest {
         int value = list.next().get();
         assertEquals(value, 1);
     }
+
+    @Test
+    void testGetPreviousElement() {
+        CircularList list = new CircularListImpl(List.of(1, 2, 3));
+        int value = list.previous().get();
+        assertEquals(value, 3);
+    }
+
+    @Test
+    void testGetMultiplePreviousElements() {
+        CircularList list = new CircularListImpl(List.of(1, 2, 3));
+        list.previous();
+        list.previous();
+        int value = list.previous().get();
+        assertEquals(value, 1);
+    }
+
+    @Test
+    void testGetPreviousElementAfterCycling() {
+        CircularList list = new CircularListImpl(List.of(1, 2, 3));
+        list.previous();
+        list.previous();
+        list.previous();
+        int value = list.previous().get();
+        assertEquals(value, 3);
+    }
+
+    @Test
+    void testGetNextAfterPreviousElement() {
+        CircularList list = new CircularListImpl(List.of(1, 2, 3));
+        list.previous();
+        int value = list.next().get();
+        assertEquals(value, 1);
+    }
+
+    @Test
+    void testGetPreviousAfterNextElement() {
+        CircularList list = new CircularListImpl(List.of(1, 2, 3));
+        list.next();
+        int value = list.previous().get();
+        assertEquals(value, 3);
+    }
+
+    @Test
+    void testResetList() {
+        CircularList list = new CircularListImpl(List.of(1, 2, 3));
+        list.previous();
+        list.previous();
+        list.reset();
+        int value = list.next().get();
+        assertEquals(value, 1);
+    }
 }

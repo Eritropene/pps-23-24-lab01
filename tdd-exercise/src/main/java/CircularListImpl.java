@@ -7,14 +7,16 @@ import tdd.CircularList;
 public class CircularListImpl implements CircularList{
 
     private List<Integer> list;
-    private int cursor = 0;
+    private int cursor;
 
     public CircularListImpl(List<Integer> list) {
         this.list = new ArrayList<>(list);
+        reset();
     }
 
     public CircularListImpl() {
         this.list = new ArrayList<>();
+        reset();
     }
 
     @Override
@@ -34,29 +36,37 @@ public class CircularListImpl implements CircularList{
 
     @Override
     public Optional<Integer> next() {
-        Optional<Integer> result;
-        if (isEmpty()) 
-            result = Optional.empty();
-        else
-            result = Optional.of(getCurrentElement());
-
-        this.cursor += 1;
-        return result;
+        incrementCursor();
+        return getCurrentElement();
     }
 
     @Override
     public Optional<Integer> previous() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'previous'");
+        decrementCursor();
+        return getCurrentElement();
     }
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reset'");
+        this.cursor = -1;
     }
 
-    private int getCurrentElement() {
-        return this.list.get( this.cursor % this.size() );
+    private void incrementCursor() {
+        this.cursor += 1;
+        if (this.cursor >= this.size())
+            this.cursor = 0;
+    }
+
+    private void decrementCursor() {
+        this.cursor -= 1;
+        if (this.cursor < 0)
+            this.cursor = this.size() - 1;
+    }
+
+    private Optional<Integer> getCurrentElement() {
+        if (isEmpty()) 
+            return Optional.empty();
+        else
+            return Optional.of(this.list.get(this.cursor));
     }
 }
