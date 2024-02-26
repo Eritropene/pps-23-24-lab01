@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * The test suite for testing the SimpleBankAccount implementation
  */
-class SimpleBankAccountTest {
+class SimpleBankAccountTest{
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
