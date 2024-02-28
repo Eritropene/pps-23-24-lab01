@@ -20,5 +20,17 @@ public class CircularListWithFilterTest extends CircularListTest {
         return new CircularListWithFilter(List.of(1,2,3)); 
     }
 
-    
+    @Test
+    void testFindValueWithFilteredNext() {
+        CircularListWithFilter list = createFilledList();
+        var foundValue = list.filteredNext(i -> i > 2);
+        assertEquals(foundValue.get(), 3);
+    }
+
+    @Test
+    void testFindNothingWithFilteredNext() {
+        CircularListWithFilter list = createFilledList();
+        var foundValue = list.filteredNext(i -> false);
+        assertTrue(foundValue.isEmpty());
+    }
 }
