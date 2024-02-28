@@ -1,66 +1,41 @@
 package tdd2;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
+/**
+ * Represents a list of integers, with a built-in iterator that is bidirectional and circular.
+ * Example: with a list like {1,2,3}, the first call of next() returns 1, the second call returns 2,
+ * the third returns 3, the fourth returns 1, and so on. Call to previous() goes in the other way.
+ */
+public interface CircularIterableList {
 
-import tdd.CircularList;
-import tdd.CircularListImpl;
+    /**
+     * Adds an element to the list, namely, after the last inserted one.
+     * @param element the element to be added to the list
+     */
+    void add(final int element);
 
-public class CircularIterableList {
+    /**
+     * Provides the current size of the list
+     * @return the size of the list
+     */
+    int size();
 
-    private CircularList list;
+    /**
+     * Checks if the list is empty
+     * @return true if the list is empty, false otherwise
+     */
+    boolean isEmpty();
 
-    public CircularIterableList(List<Integer> list) {
-        this.list = new CircularListImpl(list);
-    }
+    /**
+     * Provides an iterator to cycle through le list moving forwards
+     * @return the forward-moving iterator
+     */
+    Iterator<Optional<Integer>> getForwardIterator();
 
-    public CircularIterableList() {
-        this.list = new CircularListImpl();
-    }
-
-    public boolean isEmpty() {
-        return this.list.isEmpty();
-    }
-
-	public Integer size() {
-		return this.list.size();
-	}
-
-	public void add(int element) {
-		this.list.add(element);
-	}
-
-    public Iterator<Optional<Integer>> getForwardIterator() {
-        return new Iterator<Optional<Integer>>() {
-
-            @Override
-            public boolean hasNext() {
-                return !list.isEmpty();
-            }
-
-            @Override
-            public Optional<Integer> next() {
-                return list.next();
-            }
-
-        };
-    }
-
-    public Iterator<Optional<Integer>> getBackwardIterator() {
-        return new Iterator<Optional<Integer>>() {
-
-            @Override
-            public boolean hasNext() {
-                return !list.isEmpty();
-            }
-
-            @Override
-            public Optional<Integer> next() {
-                return list.previous();
-            }
-
-        };
-    }
-
+    /**
+     * Provides an iterator to cycle through le list moving backwards
+     * @return the backward-moving iterator
+     */
+    Iterator<Optional<Integer>> getBackwardIterator();
 }

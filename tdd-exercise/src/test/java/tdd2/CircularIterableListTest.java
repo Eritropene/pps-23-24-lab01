@@ -11,33 +11,40 @@ import org.junit.jupiter.api.Test;
  */
 public class CircularIterableListTest {
     
+    private CircularIterableList createEmptyList() {
+        return new CircularIterableListImpl();
+    }
+    private CircularIterableList createFilledList() {
+        return new CircularIterableListImpl(List.of(1,2,3));
+    }
+
     @Test
     void testInitialEmptySize() {
-        CircularIterableList list = new CircularIterableList();
+        CircularIterableList list = createEmptyList();
         assertEquals(list.size(), 0);
     }
 
     @Test
     void testInitialSize() {
-        CircularIterableList list = new CircularIterableList(List.of(1,2,3));
+        CircularIterableList list = createFilledList();
         assertEquals(list.size(), 3);
     }
 
     @Test
     void testIfEmptyListIsEmpty() {
-        CircularIterableList list = new CircularIterableList();
+        CircularIterableList list = createEmptyList();
         assertTrue(list.isEmpty());
     }
 
     @Test
     void testIfFilledListIsNotEmpty() {
-        CircularIterableList list = new CircularIterableList(List.of(1, 2, 3));
+        CircularIterableList list = createFilledList();
         assertFalse(list.isEmpty());
     }
 
     @Test
     void testAddElement() {
-        CircularIterableList list = new CircularIterableList();
+        CircularIterableList list = createEmptyList();
         list.add(1);
         list.add(2);
         assertEquals(list.size(), 2);
@@ -45,47 +52,47 @@ public class CircularIterableListTest {
 
     @Test
     void testGetForwardIterator() {
-        CircularIterableList list = new CircularIterableList(List.of(1, 2, 3));
+        CircularIterableList list = createFilledList();
         assertTrue(list.getForwardIterator() instanceof Iterator);
     }
 
     @Test
     void testGetBackwardIterator() {
-        CircularIterableList list = new CircularIterableList(List.of(1, 2, 3));
+        CircularIterableList list = createFilledList();
         assertTrue(list.getBackwardIterator() instanceof Iterator);
     }
 
     @Test
     void testHasNextInForwardIterator() {
-        CircularIterableList list = new CircularIterableList(List.of(1, 2, 3));
+        CircularIterableList list = createFilledList();
         var forwardIterator = list.getForwardIterator();
         assertTrue(forwardIterator.hasNext());
     }
 
     @Test
     void testHasNextInBackwardIterator() {
-        CircularIterableList list = new CircularIterableList(List.of(1, 2, 3));
+        CircularIterableList list = createFilledList();
         var backwardIterator = list.getBackwardIterator();
         assertTrue(backwardIterator.hasNext());
     }
 
     @Test
     void testGetNextInForwardIterator() {
-        CircularIterableList list = new CircularIterableList(List.of(1, 2, 3));
+        CircularIterableList list = createFilledList();
         var forwardIterator = list.getForwardIterator();
         assertEquals(forwardIterator.next().get(), 1);
     }
 
     @Test
     void testGetNextInBackwardIterator() {
-        CircularIterableList list = new CircularIterableList(List.of(1, 2, 3));
+        CircularIterableList list = createFilledList();
         var backwardIterator = list.getBackwardIterator();
         assertEquals(backwardIterator.next().get(), 3);
     }
 
     @Test
     void testCycleListWithForwardIterator() {
-        CircularIterableList list = new CircularIterableList(List.of(1, 2, 3));
+        CircularIterableList list = createFilledList();
         var forwardIterator = list.getForwardIterator();
         final int iterations = 5;
         for (int i=0; i<iterations; i++) {
@@ -96,7 +103,7 @@ public class CircularIterableListTest {
 
     @Test
     void testCycleListWithBackwardIterator() {
-        CircularIterableList list = new CircularIterableList(List.of(1, 2, 3));
+        CircularIterableList list = createFilledList();
         var backwardIterator = list.getBackwardIterator();
         final int iterations = 5;
         for (int i=0; i<iterations; i++) {
@@ -107,28 +114,28 @@ public class CircularIterableListTest {
 
     @Test
     void testHasNextInEmptyForwardIterator() {
-        CircularIterableList list = new CircularIterableList();
+        CircularIterableList list = createEmptyList();
         var forwardIterator = list.getForwardIterator();
         assertFalse(forwardIterator.hasNext());
     }
 
     @Test
     void testHasNextInEmptyBackwardIterator() {
-        CircularIterableList list = new CircularIterableList();
+        CircularIterableList list = createEmptyList();
         var backwardIterator = list.getBackwardIterator();
         assertFalse(backwardIterator.hasNext());
     }
 
     @Test
     void testGetNextInEmptyForwardIterator() {
-        CircularIterableList list = new CircularIterableList();
+        CircularIterableList list = createEmptyList();
         var forwardIterator = list.getForwardIterator();
         assertFalse(forwardIterator.next().isPresent());
     }
 
     @Test
     void testGetNextInEmptyBackwardIterator() {
-        CircularIterableList list = new CircularIterableList();
+        CircularIterableList list = createEmptyList();
         var backwardIterator = list.getBackwardIterator();
         assertFalse(backwardIterator.next().isPresent());
     }
