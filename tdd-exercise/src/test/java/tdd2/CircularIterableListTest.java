@@ -19,13 +19,13 @@ public class CircularIterableListTest {
     }
 
     @Test
-    void testInitialEmptySize() {
+    void testInitialSizeOfEmptyList() {
         CircularIterableList list = createEmptyList();
         assertEquals(list.size(), 0);
     }
 
     @Test
-    void testInitialSize() {
+    void testInitialSizeOfFilledList() {
         CircularIterableList list = createFilledList();
         assertEquals(list.size(), 3);
     }
