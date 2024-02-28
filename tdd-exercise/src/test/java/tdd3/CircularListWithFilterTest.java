@@ -33,4 +33,11 @@ public class CircularListWithFilterTest extends CircularListTest {
         var foundValue = list.filteredNext(i -> false);
         assertTrue(foundValue.isEmpty());
     }
+
+    @Test
+    void testFindNothingWithFilteredNextInEmptyList() {
+        CircularListWithFilter list = createEmptyList();
+        var foundValue = list.filteredNext(i -> i==3);
+        assertTrue(foundValue.isEmpty());
+    }
 }
